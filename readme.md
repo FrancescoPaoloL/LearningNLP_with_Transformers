@@ -1,5 +1,13 @@
 # Learning NLP with Python
 
+## Basis
+
+### Perceptron
+A Perceptron is a fundamental unit within artificial neural networks: it takes in various inputs, multiplies each by a weight, adds them up, and 
+then decides whether to activate based on a certain rule. In order to show how it works, I've written a simple code that uses a "perceptron" which is 
+implemented implicitly within the calculation of the output during the forward propagation step and the subsequent adjustment of synaptic weights during 
+the backpropagation step.
+
 TODO
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) 
@@ -9,6 +17,7 @@ TODO
 
 ## Requirements
 ```
+numpy==1.24.2
 TODO
 ```
 
