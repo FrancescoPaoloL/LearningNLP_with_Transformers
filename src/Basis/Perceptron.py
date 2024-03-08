@@ -11,24 +11,8 @@
 '''
 
 import numpy as np
-
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
-
-def sigmoid_derivative(x):
-    sigm = sigmoid(x)
-    return sigm * (1 - sigm)
-
-# Define training data
-inputs = np.array([[0, 0, 1],
-                   [1, 1, 1],
-                   [1, 0, 1],
-                   [0, 1, 1],
-                   [0, 0, 0],
-                   [1, 0, 0],
-                   [0, 1, 0]])
-
-outputs = np.array([[0, 1, 1, 0, 0, 1, 0]]).T
+from training_data import inputs, outputs
+from formulae import *
 
 np.random.seed(1)
 synaptic_weights = 2 * np.random.random((3, 1)) - 1
