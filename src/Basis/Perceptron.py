@@ -14,31 +14,32 @@ import numpy as np
 from training_data import inputs, outputs
 from formulae import *
 
-np.random.seed(1)
-synaptic_weights = 2 * np.random.random((3, 1)) - 1
+if __name__ == "__main__":
+    np.random.seed(1)
+    synaptic_weights = 2 * np.random.random((3, 1)) - 1
 
-print("Original inputs:")
-print(inputs)
-print("Real outputs:")
-print(outputs)
-print("Random starting synaptic weights:")
-print(synaptic_weights)
+    print("Original inputs:")
+    print(inputs)
+    print("Real outputs:")
+    print(outputs)
+    print("Random starting synaptic weights:")
+    print(synaptic_weights)
 
-np.set_printoptions(suppress=True)
+    np.set_printoptions(suppress=True)
 
-for iteration in range(100000):
-    # Forward propagation
-    output = sigmoid(np.dot(inputs, synaptic_weights))
+    for iteration in range(100000):
+        # Forward propagation
+        output = sigmoid(np.dot(inputs, synaptic_weights))
 
-    # Backpropagation
-    error = outputs - output
-    adjustments = error * sigmoid_derivative(output)
+        # Backpropagation
+        error = outputs - output
+        adjustments = error * sigmoid_derivative(output)
 
-    # Update weights
-    synaptic_weights += np.dot(inputs.T, adjustments)
+        # Update weights
+        synaptic_weights += np.dot(inputs.T, adjustments)
 
-print("Synaptic weights after training:")
-print(synaptic_weights)
-print("Output after training:")
-print(output)
+    print("Synaptic weights after training:")
+    print(synaptic_weights)
+    print("Output after training:")
+    print(output)
 
