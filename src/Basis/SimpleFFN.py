@@ -7,26 +7,50 @@ class SimpleFFN():
         np.random.seed(1)
         self.synaptic_weights = 2 * np.random.random((3, 1)) - 1
 
-    def train(self, training_inputs, training_outputs, training_iterations):
-        for i in range(training_iterations):
+    def train(self, training_inputs, training_outputs, learning_rate=0.1, epochs=1000):
+        for epoch in range(epochs):
+            # Forward pass
             output = self.elaborate(training_inputs)
+            
+            # Compute the mean squared error
             error = training_outputs - output
-            adjustments = np.dot(training_inputs.T, error * sigmoid_derivative(output))
-            self.synaptic_weights += adjustments
-    
+            mse = np.mean(np.square(error))
+            
+            # Backpropagation
+            adjustments = self.backward(training_inputs, training_outputs, output)
+            
+            # Update weights
+            self.synaptic_weights += adjustments * learning_rate
+            
+            # Print MSE for monitoring
+            if epoch % 100 == 0:
+                print(f'Epoch {epoch}: MSE = {mse:.4f}')
+
     def elaborate(self, inputs):
         inputs = inputs.astype(float)
         output = sigmoid(np.dot(inputs, self.synaptic_weights))
         return output
     
+    def backward(self, training_inputs, training_outputs, output):
+        error = training_outputs - output
+        adjustments = np.dot(training_inputs.T, error * sigmoid_derivative(output))
+        return adjustments
+
 if __name__ == "__main__":
+    print("Original inputs:")
+    print(inputs)
+    print("Real outputs:")
+    print(outputs)
+
     ffn = SimpleFFN()
-    ffn.train(inputs, outputs, 100000)
+    learning_rate = 0.1
+    epochs = 1000
+    ffn.train(inputs, outputs, learning_rate, epochs)
 
     print("Synaptic weights after training:")
     print(ffn.synaptic_weights)
     print("Output after training:")
-    print(outputs)
+    print(ffn.elaborate(inputs))
 
     A = float(input("Input 1: "))
     B = float(input("Input 2: "))
