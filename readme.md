@@ -2,11 +2,14 @@
 
 ## Basis
 
-### Perceptron
-A Perceptron is a fundamental unit within artificial neural networks: it takes in various inputs, multiplies each by a weight, adds them up, and 
-then decides whether to activate based on a certain rule. In order to show how it works, I've written a simple code that uses a "perceptron" which is 
-implemented implicitly within the calculation of the output during the forward propagation step and the subsequent adjustment of synaptic weights during 
-the backpropagation step.
+### The Perceptron
+We start with the simplest form of a neural network, a perceptron. It consists of a single neuron that takes input, applies weights, and outputs a result based on an activation function. This basic unit learns to classify inputs into two categories by adjusting its weights during training.
+In order to show how it works, I've written a simple code that uses a "perceptron" which is implemented implicitly within the calculation of the output during the forward propagation step and the subsequent adjustment of synaptic weights during the backpropagation step.
+
+### Feedforward Neural Network (FFN)    
+We expand from the single perceptron to a feedforward neural network (FNN) with multiple layers. This FNN consists of an input layer, one or more hidden layers, and an output layer. Each neuron in one layer is connected to every neuron in the next layer, and information flows in one direction without loops. This type of network can handle more complex patterns and tasks compared to a single perceptron.I've written a simple code thst represents a FFN with one layer.
+
+### Recurrent Neural Network (RRN)    
 
 TODO
 
