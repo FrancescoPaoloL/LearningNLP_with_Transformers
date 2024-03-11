@@ -7,16 +7,23 @@ class SimpleFFN():
         np.random.seed(1)
         self.synaptic_weights = 2 * np.random.random((3, 1)) - 1
 
+    def forwardPropagation(self, inputs):
+        inputs = inputs.astype(float)
+        output = sigmoid(np.dot(inputs, self.synaptic_weights))
+        return output
+    
+    def backward(self, training_inputs, training_outputs, output):
+        error = training_outputs - output
+        adjustments = np.dot(training_inputs.T, error * sigmoid_derivative(output))
+        return adjustments
+    
     def train(self, training_inputs, training_outputs, learning_rate=0.1, epochs=1000):
         for epoch in range(epochs):
-            # Forward pass
-            output = self.elaborate(training_inputs)
+            output = self.forwardPropagation(training_inputs)
             
-            # Compute the mean squared error
             error = training_outputs - output
             mse = np.mean(np.square(error))
             
-            # Backpropagation
             adjustments = self.backward(training_inputs, training_outputs, output)
             
             # Update weights
@@ -26,15 +33,6 @@ class SimpleFFN():
             if epoch % 100 == 0:
                 print(f'Epoch {epoch}: MSE = {mse:.4f}')
 
-    def elaborate(self, inputs):
-        inputs = inputs.astype(float)
-        output = sigmoid(np.dot(inputs, self.synaptic_weights))
-        return output
-    
-    def backward(self, training_inputs, training_outputs, output):
-        error = training_outputs - output
-        adjustments = np.dot(training_inputs.T, error * sigmoid_derivative(output))
-        return adjustments
 
 if __name__ == "__main__":
     print("Original inputs:")
@@ -50,7 +48,7 @@ if __name__ == "__main__":
     print("Synaptic weights after training:")
     print(ffn.synaptic_weights)
     print("Output after training:")
-    print(ffn.elaborate(inputs))
+    print(ffn.forwardPropagation(inputs))
 
     A = float(input("Input 1: "))
     B = float(input("Input 2: "))
@@ -58,4 +56,4 @@ if __name__ == "__main__":
 
     print("New situation: input data = ", A, B, C)
     print("Output data:")
-    print(ffn.elaborate(np.array([A, B, C])))
+    print(ffn.forwardPropagation(np.array([A, B, C])))
